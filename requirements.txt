@@ -1,0 +1,10 @@
+tensorflow>=2.12
+keras>=2.12
+opencv-python
+numpy
+matplotlib
+streamlit
+pillow
+scikit-learn
+flask
+seaborn

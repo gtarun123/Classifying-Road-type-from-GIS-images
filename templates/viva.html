@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viva Notes - GIS Road Classifier</title>
+    <!-- Google Fonts: Space Grotesk, Poppins, Inter, Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="navbar-brand">
+            <span>🛰️</span>
+            GIS Road Classifier
+            <span class="navbar-label" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; font-family: 'Orbitron', sans-serif; border: 1px solid rgba(0, 245, 212, 0.3); color: var(--accent-primary); background: rgba(0, 245, 212, 0.03); box-shadow: 0 0 15px rgba(0, 245, 212, 0.08);">
+                <span class="status-pulse-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-primary); display: inline-block; box-shadow: 0 0 10px var(--accent-primary); animation: status-pulse 1.8s ease-in-out infinite;"></span>
+                Telemetry Active
+            </span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">🛰️ Scan Console</a>
+            <a href="/performance" class="nav-link">📊 Model Benchmarks</a>
+            <a href="/history" class="nav-link">📜 Telemetry History</a>
+            <a href="/viva" class="nav-link active">🎓 Academic Defense</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1 class="hero-title">Theoretical <span>Viva Hub</span></h1>
+            <p class="hero-copy">
+                Comprehensive explanations of the underlying computer vision and deep learning paradigms for project presentation and examination prep.
+            </p>
+        </div>
+
+        <div class="theory-hub" id="viva-hub" style="margin-top: 0;">
+            <div class="theory-card">
+                <h4>🧠 1. Convolutional Layer Mechanics</h4>
+                <p>
+                    CNNs utilize sliding filters (kernels) to execute spatial convolutions. These filters multiply their weight matrices against localized pixel coordinates, yielding feature maps that isolate vital outlines, highway lanes, elevated flyovers, and background vegetation boundary markers.
+                </p>
+            </div>
+            
+            <div class="theory-card" style="border-color: var(--accent-primary);">
+                <div style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 2px solid var(--accent-primary); border-left: 2px solid var(--accent-primary);"></div>
+                <h4 style="color: var(--accent-primary);">🧬 2. Rationale of Transfer Learning</h4>
+                <p>
+                    Instead of training millions of randomized weights from scratch, Transfer Learning imports parameters pre-trained on the high-variety ImageNet dataset. By freezing these features, we preserve complex shape extractors, avoiding overfitting and reducing training times by 90%.
+                </p>
+            </div>
+            
+            <div class="theory-card" style="border-color: var(--accent-highlight);">
+                <div style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 2px solid var(--accent-highlight); border-left: 2px solid var(--accent-highlight);"></div>
+                <h4 style="color: var(--accent-highlight);">⚡ 3. Lightweight Edge-AI Convolutions</h4>
+                <p>
+                    MobileNetV2 implements **Depthwise Separable Convolutions** which split standard 3D filters into a spatial 2D Depthwise convolution and a 1x1 Pointwise channel-merger. This mathematical separation reduces mathematical calculations by approximately 8.5 times, providing rapid CPU responses.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            Developed as a Deep Learning College Project &bull; Powered by <a href="https://tensorflow.org" target="_blank">TensorFlow 2.x</a> &amp; <a href="https://flask.palletsprojects.com" target="_blank">Flask</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Performance - GIS Road Classifier</title>
+    <!-- Google Fonts: Space Grotesk, Poppins, Inter, Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="navbar-brand">
+            <span>🛰️</span>
+            GIS Road Classifier
+            <span class="navbar-label" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; font-family: 'Orbitron', sans-serif; border: 1px solid rgba(0, 245, 212, 0.3); color: var(--accent-primary); background: rgba(0, 245, 212, 0.03); box-shadow: 0 0 15px rgba(0, 245, 212, 0.08);">
+                <span class="status-pulse-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-primary); display: inline-block; box-shadow: 0 0 10px var(--accent-primary); animation: status-pulse 1.8s ease-in-out infinite;"></span>
+                Telemetry Active
+            </span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">🛰️ Scan Console</a>
+            <a href="/performance" class="nav-link active">📊 Model Benchmarks</a>
+            <a href="/history" class="nav-link">📜 Telemetry History</a>
+            <a href="/viva" class="nav-link">🎓 Academic Defense</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1 class="hero-title">Model <span>Performance Matrix</span></h1>
+            <p class="hero-copy">
+                Detailed benchmarks comparing various deep neural network architectures trained for satellite image road type classification.
+            </p>
+        </div>
+
+        <div class="tab-section" id="benchmark-section" style="margin-top: 0;">
+            <div class="comparison-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model Architecture</th>
+                            <th>Total Parameters</th>
+                            <th>Trainable Head Params</th>
+                            <th>Training Speed (CPU)</th>
+                            <th>Test Set Loss</th>
+                            <th>Test Set Accuracy</th>
+                            <th>Faculty Suitability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if comparisons %}
+                            {% for key, val in comparisons.items() %}
+                                <tr>
+                                    <td style="font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif;">{{ val.name }}</td>
+                                    <td style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">{{ val.parameters }}</td>
+                                    <td style="color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">{{ val.trainable_params }}</td>
+                                    <td>{{ val.training_time }}</td>
+                                    <td style="color: var(--accent-highlight); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">{{ val.test_loss }}</td>
+                                    <td style="font-weight: 700; color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.95rem;">{{ val.test_accuracy }}</td>
+                                    <td style="font-size: 0.85rem; color: var(--text-muted);">{{ val.suitability }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td style="font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif;">Custom 3-Layer CNN</td>
+                                <td style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">12,938,948</td>
+                                <td style="color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">12,938,948</td>
+                                <td>14 seconds/epoch</td>
+                                <td style="color: var(--accent-highlight); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">0.2854</td>
+                                <td style="font-weight: 700; color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.95rem;">90.00%</td>
+                                <td style="font-size: 0.85rem; color: var(--text-muted);">Medium (prone to overfitting on small datasets)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif;">MobileNetV2 (Transfer Learning)</td>
+                                <td style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">2,264,389</td>
+                                <td style="color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">6,405</td>
+                                <td>5 seconds/epoch</td>
+                                <td style="color: var(--accent-highlight); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">0.1152</td>
+                                <td style="font-weight: 700; color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.95rem;">100.00%</td>
+                                <td style="font-size: 0.85rem; color: var(--text-muted);">High (lightweight, highly optimized for web and CPU inference)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif;">ResNet50 (Transfer Learning)</td>
+                                <td style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">23,598,085</td>
+                                <td style="color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">10,245</td>
+                                <td>18 seconds/epoch</td>
+                                <td style="color: var(--accent-highlight); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;">0.1874</td>
+                                <td style="font-weight: 700; color: var(--accent-primary); font-family: 'Orbitron', sans-serif; font-size: 0.95rem;">98.00%</td>
+                                <td style="font-size: 0.85rem; color: var(--text-muted);">High (large network size, heavy memory footprint)</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            Developed as a Deep Learning College Project &bull; Powered by <a href="https://tensorflow.org" target="_blank">TensorFlow 2.x</a> &amp; <a href="https://flask.palletsprojects.com" target="_blank">Flask</a>
+        </div>
+    </footer>
+</body>
+</html>

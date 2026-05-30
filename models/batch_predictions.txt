@@ -1,0 +1,55 @@
+ROAD TYPE BATCH PREDICTION REPORT
+===================================
+
+Filename                                                     | Prediction         | Confidence  
+----------------------------------------------------------------------------------------------------
+dataset\test\Dirt Road\dirt_road_0.jpg                       | Dirt Road          | 84.62%
+dataset\test\Dirt Road\dirt_road_1.jpg                       | Dirt Road          | 86.85%
+dataset\test\Dirt Road\dirt_road_2.jpg                       | Dirt Road          | 86.14%
+dataset\test\Dirt Road\dirt_road_3.jpg                       | Dirt Road          | 90.19%
+dataset\test\Dirt Road\dirt_road_4.jpg                       | Dirt Road          | 90.74%
+dataset\test\Dirt Road\dirt_road_5.jpg                       | Dirt Road          | 90.57%
+dataset\test\Dirt Road\dirt_road_6.jpg                       | Dirt Road          | 89.72%
+dataset\test\Dirt Road\dirt_road_7.jpg                       | Dirt Road          | 87.92%
+dataset\test\Dirt Road\dirt_road_8.jpg                       | Dirt Road          | 91.54%
+dataset\test\Dirt Road\dirt_road_9.jpg                       | Dirt Road          | 91.74%
+dataset\test\Flyover Road\flyover_road_0.jpg                 | Flyover Road       | 59.47%
+dataset\test\Flyover Road\flyover_road_1.jpg                 | Flyover Road       | 59.82%
+dataset\test\Flyover Road\flyover_road_2.jpg                 | Flyover Road       | 58.83%
+dataset\test\Flyover Road\flyover_road_3.jpg                 | Flyover Road       | 56.29%
+dataset\test\Flyover Road\flyover_road_4.jpg                 | Flyover Road       | 59.96%
+dataset\test\Flyover Road\flyover_road_5.jpg                 | Flyover Road       | 55.11%
+dataset\test\Flyover Road\flyover_road_6.jpg                 | Flyover Road       | 54.39%
+dataset\test\Flyover Road\flyover_road_7.jpg                 | Flyover Road       | 50.92%
+dataset\test\Flyover Road\flyover_road_8.jpg                 | Flyover Road       | 56.59%
+dataset\test\Flyover Road\flyover_road_9.jpg                 | Flyover Road       | 57.09%
+dataset\test\Highway\highway_0.jpg                           | Highway            | 89.36%
+dataset\test\Highway\highway_1.jpg                           | Highway            | 90.71%
+dataset\test\Highway\highway_2.jpg                           | Highway            | 91.52%
+dataset\test\Highway\highway_3.jpg                           | Highway            | 90.41%
+dataset\test\Highway\highway_4.jpg                           | Highway            | 90.79%
+dataset\test\Highway\highway_5.jpg                           | Highway            | 89.48%
+dataset\test\Highway\highway_6.jpg                           | Highway            | 91.28%
+dataset\test\Highway\highway_7.jpg                           | Highway            | 90.86%
+dataset\test\Highway\highway_8.jpg                           | Highway            | 90.58%
+dataset\test\Highway\highway_9.jpg                           | Highway            | 90.52%
+dataset\test\Rural Road\rural_road_0.jpg                     | Rural Road         | 81.41%
+dataset\test\Rural Road\rural_road_1.jpg                     | Rural Road         | 66.64%
+dataset\test\Rural Road\rural_road_2.jpg                     | Rural Road         | 78.52%
+dataset\test\Rural Road\rural_road_3.jpg                     | Rural Road         | 81.21%
+dataset\test\Rural Road\rural_road_4.jpg                     | Rural Road         | 71.04%
+dataset\test\Rural Road\rural_road_5.jpg                     | Rural Road         | 64.92%
+dataset\test\Rural Road\rural_road_6.jpg                     | Rural Road         | 71.34%
+dataset\test\Rural Road\rural_road_7.jpg                     | Rural Road         | 74.05%
+dataset\test\Rural Road\rural_road_8.jpg                     | Rural Road         | 89.03%
+dataset\test\Rural Road\rural_road_9.jpg                     | Rural Road         | 78.74%
+dataset\test\Street Road\street_road_0.jpg                   | Street Road        | 84.60%
+dataset\test\Street Road\street_road_1.jpg                   | Street Road        | 88.63%
+dataset\test\Street Road\street_road_2.jpg                   | Street Road        | 89.47%
+dataset\test\Street Road\street_road_3.jpg                   | Street Road        | 89.81%
+dataset\test\Street Road\street_road_4.jpg                   | Street Road        | 90.83%
+dataset\test\Street Road\street_road_5.jpg                   | Street Road        | 85.63%
+dataset\test\Street Road\street_road_6.jpg                   | Street Road        | 81.99%
+dataset\test\Street Road\street_road_7.jpg                   | Street Road        | 87.85%
+dataset\test\Street Road\street_road_8.jpg                   | Street Road        | 87.58%
+dataset\test\Street Road\street_road_9.jpg                   | Street Road        | 88.93%

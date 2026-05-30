@@ -1,0 +1,29 @@
+{
+    "custom_cnn": {
+        "name": "Custom 3-Layer CNN",
+        "parameters": "12,938,948",
+        "trainable_params": "12,938,948",
+        "training_time": "14 seconds/epoch",
+        "test_accuracy": "90.00%",
+        "test_loss": "0.2854",
+        "suitability": "Medium (prone to overfitting on small datasets)"
+    },
+    "mobilenet": {
+        "name": "MobileNetV2 (Transfer Learning)",
+        "parameters": "2,264,389",
+        "trainable_params": "6,405",
+        "training_time": "5 seconds/epoch",
+        "test_accuracy": "100.00%",
+        "test_loss": "0.1152",
+        "suitability": "High (lightweight, highly optimized for web and CPU inference)"
+    },
+    "resnet": {
+        "name": "ResNet50 (Transfer Learning)",
+        "parameters": "23,598,085",
+        "trainable_params": "10,245",
+        "training_time": "18 seconds/epoch",
+        "test_accuracy": "98.00%",
+        "test_loss": "0.1874",
+        "suitability": "High (large network size, heavy memory footprint)"
+    }
+}

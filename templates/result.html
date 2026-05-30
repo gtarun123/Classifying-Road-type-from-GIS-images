@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inference Report - Road Type Classifier</title>
+    <!-- Google Fonts: Space Grotesk, Poppins, Inter, Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Leaflet JS & CSS for Free Map Integration (No API Key Required) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Chart.js for Interactive Probability Graphing -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="navbar-brand">
+            <span>🛰️</span>
+            GIS Road Classifier
+            <span class="navbar-label" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; font-family: 'Orbitron', sans-serif; border: 1px solid rgba(255, 46, 154, 0.3); color: var(--accent-highlight); background: rgba(255, 46, 154, 0.03); box-shadow: 0 0 15px rgba(255, 46, 154, 0.08);">
+                <span class="status-pulse-dot" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-highlight); display: inline-block; box-shadow: 0 0 10px var(--accent-highlight); animation: status-pulse-complete 1.8s ease-in-out infinite;"></span>
+                Inference Complete
+            </span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">🛰️ Scan Console</a>
+            <a href="/performance" class="nav-link">📊 Model Benchmarks</a>
+            <a href="/history" class="nav-link">📜 Telemetry History</a>
+            <a href="/viva" class="nav-link">🎓 Academic Defense</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            
+            {% if is_batch %}
+                <!-- BATCH RESULTS DISPLAY VIEW -->
+                <div>
+                    <span class="heading-sub">Batch Classification Output</span>
+                    <h1 class="batch-title">Multi-Image Batch Predictions</h1>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Successfully evaluated {{ results|length }} GIS segments inside the neural network.
+                    </p>
+                    
+                    <div class="batch-grid">
+                        {% for item in results %}
+                            <div class="batch-card">
+                                <div class="batch-thumbnail">
+                                    <div class="scanner-line"></div>
+                                    <img src="{{ url_for('static', filename=item.img_path.split('static/', 1)[1]) }}" alt="GIS segment">
+                                </div>
+                                <div class="batch-card-body">
+                                    <div class="batch-filename" title="{{ item.filename }}">
+                                        {{ item.filename }}
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem;">
+                                        <span class="badge" style="font-size: 0.7rem; border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(0, 245, 212, 0.05); padding: 0.15rem 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 600; border: 1px solid;">
+                                            {{ item.prediction }}
+                                        </span>
+                                        <span style="font-weight: 700; color: var(--accent-highlight); font-size: 0.9rem; font-family: 'Orbitron', sans-serif;">
+                                            {{ item.confidence }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="button-group" style="margin-top: 3rem;">
+                        <a href="/" class="btn">
+                            🔄 Analyze Another Batch
+                        </a>
+                        <a href="javascript:window.print();" class="btn btn-outline">
+                            🖨️ Download PDF Report
+                        </a>
+                    </div>
+                </div>
+
+            {% else %}
+                <!-- SINGLE PREDICTION DISPLAY VIEW (FULL-WIDTH VERTICAL PIPELINE FLOW) -->
+                <div class="single-vertical-pipeline" style="display: flex; flex-direction: column; gap: 3rem; width: 100%;">
+                    
+                    <!-- 1. Prediction Hero Section (Full Width) -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; border-bottom: 1px solid rgba(0, 245, 212, 0.15); padding-bottom: 2.2rem; width: 100%;">
+                        <div style="flex: 1; min-width: 280px;">
+                            <span class="heading-sub">Deep Learning Classification</span>
+                            <h1 class="pred-label" style="font-size: clamp(2.5rem, 4.5vw, 4rem); margin: 0.5rem 0;">{{ prediction }}</h1>
+                            <div style="font-size: 0.95rem; color: var(--text-muted); font-family: 'Poppins', sans-serif;">
+                                Classified using pre-trained weights from <strong>MobileNetV2 Transfer Learning</strong>.
+                            </div>
+                        </div>
+                        <div class="result-summary-grid" style="flex: 0 1 auto; display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: flex-end; width: auto;">
+                            <div class="kpi-card" style="min-width: 200px; flex: 1; margin: 0;">
+                                <div class="kpi-title">Confidence Score</div>
+                                <div class="kpi-value" style="color: var(--accent-primary);">{{ confidence }}%</div>
+                                <div class="kpi-note">Probability confidence for the inferred road class.</div>
+                            </div>
+                            <div class="kpi-card" style="min-width: 200px; flex: 1; margin: 0;">
+                                <div class="kpi-title">Model Status</div>
+                                <div class="kpi-value" style="color: var(--accent-highlight);">Operational</div>
+                                <div class="kpi-note">Inference completed successfully on edge-AI node.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. Dual Evidence Row: Image Scan & Leaflet Map placed side-by-side (Equal Heights!) -->
+                    <div style="display: flex; gap: 2.2rem; width: 100%; flex-wrap: wrap;">
+                        <!-- A. Visual Scan Image Preview -->
+                        <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column;">
+                            <span class="heading-sub" style="margin-bottom: 0.8rem; display: block;">📷 Satellite Segment Scan Preview</span>
+                            <div class="preview-container" style="width: 100%; height: 380px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(5, 8, 22, 0.4); border-color: rgba(0, 245, 212, 0.25);">
+                                <div class="scanner-line"></div>
+                                <img src="{{ url_for('static', filename=img_path.split('static/', 1)[1]) }}" alt="GIS Segment Upload" style="width: 100%; height: 100%; object-fit: cover;" class="preview-img">
+                            </div>
+                        </div>
+                        
+                        <!-- B. Geospatial Coordinates Leaflet Map -->
+                        <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column;">
+                            <span class="heading-sub" style="margin-bottom: 0.8rem; display: block;">🗺️ Geospatial Coordinates Mapping</span>
+                            <div class="map-container" id="gis-map" style="height: 380px; border-radius: 20px; border: 1px solid rgba(0, 245, 212, 0.25); overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); width: 100%;"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.6rem; display: flex; align-items: center; gap: 0.4rem; font-family: 'Orbitron', sans-serif;">
+                                📍 <span style="color: #fff;">Coordinate Base: {{ coordinates.location }} ({{ coordinates.lat|round(4) }}, {{ coordinates.lng|round(4) }})</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Model Inference & Confidence Analytics (Full Width Chart) -->
+                    <div class="chart-box" id="performance" style="width: 100%; padding: 2rem;">
+                        <span class="heading-sub" style="margin-bottom: 1rem; display: block; color: #fff;">Probability Chart (%)</span>
+                        <div style="position: relative; height: 220px; width: 100%;">
+                            <canvas id="probabilities-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 4. Smart Infrastructure Analysis (Full Width Grid) -->
+                    <div style="width: 100%;">
+                        <span class="heading-sub" style="color: var(--accent-primary);">🛠️ AI-Powered Smart Road Infrastructure Analytics</span>
+                        <div class="smart-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 1rem; width: 100%;">
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Road Surface Material</div>
+                                <div class="smart-value" style="color: var(--accent-primary); font-size: 1.1rem;">{{ smart_metrics.material }}</div>
+                            </div>
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Structural Safety Rating</div>
+                                <div class="smart-value" style="color: var(--accent-luxury); font-size: 1.1rem;">{{ smart_metrics.safety }}</div>
+                            </div>
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Estimated Lane Width</div>
+                                <div class="smart-value" style="font-size: 1.1rem;">{{ smart_metrics.lanes }}</div>
+                            </div>
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Infrastructure Health</div>
+                                <div class="smart-value" style="color: var(--accent-highlight); font-size: 1.1rem;">{{ smart_metrics.condition_index }}</div>
+                            </div>
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Pothole Rutting Risk</div>
+                                <div class="smart-value" style="font-size: 1.1rem;">{{ smart_metrics.pothole_risk }}</div>
+                            </div>
+                            <div class="smart-item" style="padding: 1.25rem; border-radius: 14px;">
+                                <div class="smart-title">Drainage Side Outflow</div>
+                                <div class="smart-value" style="font-size: 1.1rem;">{{ smart_metrics.drainage }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Controls & Report Generation (Buttons) -->
+                    <div class="button-group" style="display: flex; gap: 1rem; width: 100%; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2.2rem; flex-wrap: wrap;">
+                        <a href="/" class="btn" style="padding: 1.2rem 2.5rem;">
+                            🔄 Analyze Another Image
+                        </a>
+                        <a href="javascript:window.print();" class="btn btn-outline" style="padding: 1.2rem 2.5rem;">
+                            🖨️ Download PDF Report
+                        </a>
+                    </div>
+                    
+                </div>
+            {% endif %}
+
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            Developed as a Deep Learning College Project &bull; Powered by <a href="https://tensorflow.org" target="_blank">TensorFlow 2.x</a> &amp; <a href="https://flask.palletsprojects.com" target="_blank">Flask</a>
+        </div>
+    </footer>
+
+    {% if not is_batch %}
+        <script>
+            // 1. LEAFLET JS GEOSPATIAL MAP INITIALIZATION
+            const lat = {{ coordinates.lat }};
+            const lng = {{ coordinates.lng }};
+            const mapLocation = "{{ coordinates.location }}";
+            
+            const map = L.map('gis-map', {
+                center: [lat, lng],
+                zoom: 13,
+                zoomControl: false 
+            });
+            
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+            // Translucent stylish dark-mode tiles from CartoDB to match dark Navy theme
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+
+            // Glowing cyan marker matching neon aqua
+            const customIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: "<div style='background-color:#00F5D4; width:16px; height:16px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 12px #00F5D4;'></div>",
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+            });
+
+            L.marker([lat, lng], { icon: customIcon })
+                .addTo(map)
+                .bindPopup(`<strong style='color:#00F5D4; font-family:"Space Grotesk";'>${mapLocation}</strong><br><span style='color:#cbd5e1;'>Detected GIS Target Road.</span>`)
+                .openPopup();
+
+
+            // 2. CHART.JS PROBABILITY GRAPH INITIALIZATION
+            const ctx = document.getElementById('probabilities-chart').getContext('2d');
+            
+            const probData = {
+                labels: {{ probabilities.keys()|list|tojson }},
+                datasets: [{
+                    label: 'Probability (%)',
+                    data: {{ probabilities.values()|list|tojson }},
+                    backgroundColor: [
+                        'rgba(0, 245, 212, 0.65)',  // Neon Aqua
+                        'rgba(124, 58, 237, 0.65)',  // Neural Purple
+                        'rgba(255, 46, 154, 0.65)',  // Cyber Pink
+                        'rgba(245, 158, 11, 0.65)',   // Amber Gold
+                        'rgba(59, 130, 246, 0.65)'    // Bright Blue
+                    ],
+                    borderColor: [
+                        '#00F5D4',
+                        '#7C3AED',
+                        '#FF2E9A',
+                        '#F59E0B',
+                        '#3B82F6'
+                    ],
+                    borderWidth: 1.5,
+                    borderRadius: 6
+                }]
+            };
+
+            const probChart = new Chart(ctx, {
+                type: 'bar',
+                data: probData,
+                options: {
+                    indexAxis: 'y', // Horizontal bars
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            max: 100,
+                            ticks: { color: '#94a3b8', font: { family: 'Orbitron', weight: 'bold' } },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        y: {
+                            ticks: { color: '#f8fafc', font: { family: 'Space Grotesk', weight: 'bold', size: 12 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        </script>
+    {% endif %}
+</body>
+</html>
