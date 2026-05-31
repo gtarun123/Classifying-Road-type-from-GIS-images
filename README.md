@@ -1,5 +1,5 @@
 Team Members    Name                   USN
-    1)          Tarun Kumar G          KUB23CSE146
+    1)          Tarun Kumar G               KUB23CSE146
     2)          B Basavaraj Reddy      KUB23CSE015
     3)          D M Isaq               KUB23CSE033
     
