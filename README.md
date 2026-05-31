@@ -1,7 +1,7 @@
 Team Members    Name                   USN
-    1           Tarun Kumar G          KUB23CSE146
-    2           B Basavaraj Reddy      KUB23CSE015
-    3           D M Isaq               KUB23CSE033
+    1)          Tarun Kumar G          KUB23CSE146
+    2)          B Basavaraj Reddy      KUB23CSE015
+    3)          D M Isaq               KUB23CSE033
     
 # Road Type Classification from GIS Images using Deep Learning
 
