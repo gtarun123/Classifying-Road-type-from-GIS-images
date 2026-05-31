@@ -1,3 +1,8 @@
+Team Members    Name                   USN
+    1           Tarun Kumar G          KUB23CSE146
+    2           B Basavaraj Reddy      KUB23CSE015
+    3           D M Isaq               KUB23CSE033
+    
 # Road Type Classification from GIS Images using Deep Learning
 
 This academic project implements a state-of-the-art Deep Learning classification pipeline that categorizes satellite, GIS, and aerial road segments into five main road types: **Highway**, **Street Road**, **Rural Road**, **Dirt Road**, and **Flyover Road**. 
